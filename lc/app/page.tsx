@@ -93,7 +93,7 @@ export default function Home() {
         <Button
           onClick={() => window.print()}
           variant="outline"
-          className="flex-1 sm:flex-none"
+          className="flex-1 sm:flex-none bg-green-600"
         >
           Salvar
         </Button>
