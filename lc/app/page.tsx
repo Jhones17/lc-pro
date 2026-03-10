@@ -37,66 +37,81 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="w-full max-w-2xl mx-auto p-5 space-y-6 min-h-screen">
-      <div className="text-center">
-        <h1 className="text-3xl font-bold font-sans mb-2">Bem-vindo a LC</h1>
-        <p className="text-muted-foreground font-sans">
-          Faça sua lista de chamada, basta escrever abaixo o nome dos
-          integrantes
-        </p>
-      </div>
-      <form onSubmit={handleAdd} className="flex gap-4 items-end">
-        <Input
-          placeholder="Nome do integrante"
-          value={tarefa}
-          onChange={(e) => setTarefa(e.target.value)}
-          className="flex-1"
-        />
-        <Button type="submit">Enviar</Button>
-      </form>
-
-      <ul className="list-none space-y-2 p-0 overflow-auto max-h-[calc(100vh-300px) ">
-        {tarefas.map((t, index) => (
-          <li
-            key={index}
-            className="flex justify-between items-center p-2 bg-gray-50 rounded-lg border hover:bg-gray-100 transition-all"
-          >
-            <span className="font-medium">{t}</span>
-            <button
-              type="button"
-              onClick={() => handleRemove(index)}
-              className="ml-4 px-3 py-1.5 bg-destructive text-destructive-foreground text-sm font-medium rounded-md hover:bg-destructive/90 transition-colors"
-            >
-              x
-            </button>
-          </li>
-        ))}
-      </ul>
-
-      {preview && (
-        <div className="p-6 border rounded-lg">
-          <img
-            src={preview}
-            alt="Preview"
-            className="max-w-md max-h-80 mx-auto object-contain rounded"
-          />
+    <div className="min-h-screen w-full px-4 py-6 flex justify-center">
+      <div className="w-full max-w-2xl space-y-6">
+        <div className="text-center">
+          <h1 className="text-2xl sm:text-3xl font-bold font-sans mb-2">
+            Bem-vindo a LC
+          </h1>
+          <p className="text-sm sm:text-base text-muted-foreground font-sans">
+            Faça sua lista de chamada, basta escrever abaixo o nome dos
+            integrantes
+          </p>
         </div>
-      )}
 
-      <div className="flex flex-col justify-center sm:flex-row gap-4">
-        <Input
-          id="picture"
-          type="file"
-          accept="image/*"
-          onChange={handleChange}
-        />
-        <Button
-          onClick={() => window.print()}
-          variant="outline"
-          className="flex-1 sm:flex-none bg-green-600"
+        {/* FORM - coluna no mobile, linha no desktop */}
+        <form
+          onSubmit={handleAdd}
+          className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-end"
         >
-          Salvar
-        </Button>
+          <Input
+            placeholder="Nome do integrante"
+            value={tarefa}
+            onChange={(e) => setTarefa(e.target.value)}
+            className="flex-1"
+          />
+          <Button type="submit" className="w-full sm:w-auto">
+            Enviar
+          </Button>
+        </form>
+
+        {/* LISTA */}
+        <ul className="list-none space-y-2 p-0 overflow-auto max-h-[50vh]">
+          {tarefas.map((t, index) => (
+            <li
+              key={index}
+              className="flex justify-between items-center p-2 bg-gray-50 rounded-lg border hover:bg-gray-100 transition-all text-sm sm:text-base"
+            >
+              <span className="font-medium break-words pr-2">{t}</span>
+              <button
+                type="button"
+                onClick={() => handleRemove(index)}
+                className="ml-4 px-3 py-1.5 bg-destructive text-destructive-foreground text-xs sm:text-sm font-medium rounded-md hover:bg-destructive/90 transition-colors"
+              >
+                x
+              </button>
+            </li>
+          ))}
+        </ul>
+
+        {/* PREVIEW DA IMAGEM */}
+        {preview && (
+          <div className="p-4 sm:p-6 border rounded-lg">
+            <img
+              src={preview}
+              alt="Preview"
+              className="w-full max-h-80 object-contain rounded"
+            />
+          </div>
+        )}
+
+        {/* INPUT DE ARQUIVO + BOTÃO */}
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+          <Input
+            id="picture"
+            type="file"
+            accept="image/*"
+            onChange={handleChange}
+            className="w-full"
+          />
+          <Button
+            onClick={() => window.print()}
+            variant="outline"
+            className="w-full sm:w-auto bg-green-600 text-white hover:bg-green-700"
+          >
+            Salvar
+          </Button>
+        </div>
       </div>
     </div>
   );
